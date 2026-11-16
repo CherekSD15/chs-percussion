@@ -477,6 +477,11 @@ details.q summary{font-weight:600}
 .remind .ra{display:flex;gap:8px;flex-wrap:wrap}
 .remind .ra .btn{background:#fff;color:#1c1c1c}
 .remind .ra .btn.ghost2{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.install{margin:0 0 16px;padding:16px 18px;border-radius:16px;background:#fde8e8;border:1.5px solid #db0000;color:#1c1c1c}
+.install h2{margin:0 0 6px;font:700 19px/1.2 'Zilla Slab',Georgia,serif}
+.install ol{margin:6px 0 0;padding-left:22px;font-size:15px;line-height:1.55}
+.install .ia{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.install .share{display:inline-block;vertical-align:-3px;width:18px;height:18px}
 </style>
 </head>
 <body>
@@ -510,6 +515,7 @@ details.q summary{font-weight:600}
 
   <main class="canvas">
     <div class="col">
+    <div class="install" id="install" hidden></div>
     <div class="remind" id="remind" hidden role="status"></div>
 
     <!-- HOME -->
@@ -779,6 +785,31 @@ function fitCal(){const el=$('cal'),r=el.getBoundingClientRect();let h=0;el.quer
 function calArrows(){fitCal();const el=$('cal');$('calPrev').disabled=el.scrollLeft<8;$('calNext').disabled=el.scrollLeft+el.clientWidth>=el.scrollWidth-8}
 function calStep(dir){const el=$('cal'),mon=el.querySelector('.mon');if(!mon)return;const step=mon.getBoundingClientRect().width+parseFloat(getComputedStyle(el).columnGap||28);el.scrollBy({left:dir*step,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
 
+// ---- Install help (only inside the hosted app, before it's installed) ----
+let deferredInstall=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;renderInstall()});
+addEventListener('appinstalled',()=>{deferredInstall=null;renderInstall()});
+function renderInstall(){
+  const el=$('install');if(!el)return;
+  const inApp=!!document.querySelector('link[rel="manifest"]');
+  const installed=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  let hide=false;try{hide=localStorage.getItem('cp26-install')==='hide'}catch(e){}
+  if(!inApp||installed||hide){el.hidden=true;return}
+  const ua=navigator.userAgent,ios=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),android=/Android/i.test(ua);
+  const inAppBrowser=/FBAN|FBAV|Instagram|Line|Snapchat|GSA|CriOS|FxiOS|EdgiOS/i.test(ua);
+  const share='<svg class="share" viewBox="0 0 24 24" fill="none" stroke="#1c1c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Share"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+  let steps='';
+  if(ios&&inAppBrowser)steps=`<ol><li>This link opened inside another app. Tap <b>⋯</b> or the compass and choose <b>Open in Safari</b>.</li><li>In Safari, tap ${share} <b>Share</b>.</li><li>Scroll down and tap <b>Add to Home Screen</b>, then <b>Add</b>.</li></ol>`;
+  else if(ios)steps=`<ol><li>Tap ${share} <b>Share</b> at the bottom of Safari.</li><li>Scroll down and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>. Look for the Cardinal icon on your home screen.</li></ol>`;
+  else if(android&&deferredInstall)steps=`<p style="margin:0;font-size:15px">One tap and it's on your home screen.</p>`;
+  else if(android)steps=`<ol><li>Open this page in <b>Chrome</b>.</li><li>Tap the <b>⋮</b> menu (top right).</li><li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li></ol>`;
+  else steps=`<p style="margin:0;font-size:15px">Open this link on your phone to install it. On a computer, look for the install icon in the address bar.</p>`;
+  el.innerHTML=`<h2>📲 Put this app on your phone</h2>${steps}<div class="ia">${deferredInstall?'<button class="btn sm primary" id="instGo">Install app</button>':''}<button class="btn sm" id="instX">Not now</button></div>`;
+  el.hidden=false;
+  const go=$('instGo');if(go)go.onclick=async()=>{deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;renderInstall()};
+  $('instX').onclick=()=>{try{localStorage.setItem('cp26-install','hide')}catch(e){}el.hidden=true};
+}
+
 // ---- This-week reminder banner ----
 function renderRemind(){
   const el=$('remind'),me=sel.value;
@@ -918,7 +949,7 @@ const APP_URL='https://chereksd15.github.io/chs-percussion/';
 function renderAlerts(){
   const el=$('alertCard'),me=sel.value,inApp=!!document.querySelector('link[rel="manifest"]');
   el.hidden=false;
-  if(!inApp){el.innerHTML=`<div class="ph"><h2>Get the app</h2></div><p class="strip-note">Put Columbus Percussion on your home screen. It works offline and adds your rehearsals to your phone's calendar, with an alert the day before and 2 hours before.</p>${APP_URL?`<a class="btn sm primary" href="${APP_URL}" target="_blank" rel="noopener" style="margin-top:12px">Get the app</a>`:`<button class="btn sm" disabled style="margin-top:12px;opacity:.6;cursor:default">Get the app · coming soon</button>`}`;return}
+  if(!inApp){el.innerHTML=`<div class="ph"><h2>Get the app</h2></div><p class="strip-note">Open it in Safari (iPhone) or Chrome (Android) and add it to your home screen. It works offline and adds your rehearsals to your phone's calendar, with an alert the day before and 2 hours before.</p>${APP_URL?`<a class="btn sm primary" href="${APP_URL}" target="_blank" rel="noopener" style="margin-top:12px">Get the app</a>`:`<button class="btn sm" disabled style="margin-top:12px;opacity:.6;cursor:default">Get the app · coming soon</button>`}`;return}
   const slug=(me||'everyone').toLowerCase(),base=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'');
   const file=`cal/${slug}.ics`,web=base.replace(/^https?:/,'webcal:')+file;
   const android=/Android/i.test(navigator.userAgent),gcal='https://calendar.google.com/calendar/render?cid='+encodeURIComponent(web);
@@ -931,7 +962,7 @@ function renderAlerts(){
 }
 // Read-only copy of the schedule data for the app build (calendar files).
 window.CP=Object.freeze({nights,ENS,LEVELS,ALL,mineIn});
-function renderAll(){renderHome();renderSchedule();renderSolos();renderStarry();try{renderAlerts()}catch(e){}}
+function renderAll(){renderHome();renderSchedule();renderSolos();renderStarry();try{renderAlerts()}catch(e){}try{renderInstall()}catch(e){}}
 let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{drawStrip();renderLog()},120)});
 
 if(store.who&&store.who.includes(' ')){store.who=store.who.split(' ')[0];save()}
