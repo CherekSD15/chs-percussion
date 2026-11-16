@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Columbus High School percussion: Solo & Ensemble 2026–27 season.">
+<meta name="theme-color" content="#1c1c1c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="CHS Percussion">
+<title>Columbus Percussion 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Editorial greeting, open plane. Light only, by choice: a calm daily home for students.
+   Grid: canvas column 1100px max, 12 columns, 16px gap -> (1100 - 11*16)/12 = 77px columns. Spans 3/3/3/3, 9/3, 6/6, 6/6.
+   Face: the greeting names the student and their next Thursday. Colours from the Columbus School District site: cardinal red #db0000 on white, greys #f8f8f8 / #e5e5e5 / #cfcfcf, ink #242424, secondary #636363. */
+:root{
+  color-scheme: light;
+  --ground:#ffffff; --surface:#f8f8f8; --raised:#ffffff; --border:#e5e5e5; --rule:#efefef; --control:#cfcfcf;
+  --text:#242424; --muted:#636363; --accent:#db0000; --accent-pale:#fbe3e3;
+  --positive:#2e7d32; --negative:#b42318; --warning:#92400e;
+  --pill-positive-bg:#dcfae5; --pill-positive-ink:#04250e;
+  --pill-warning-bg:#fff4dc; --pill-warning-ink:#7a3a0b;
+  --pill-neutral-bg:#efefef; --pill-neutral-ink:#373737;
+  --mark:#cfcfcf; --mark-ink:#373737;
+  --radius-card:22px; --radius-row:14px; --radius-control:999px;
+  --gap:16px; --pad:20px; --control-height:38px;
+  --sans:"Instrument Sans",Inter,system-ui,sans-serif; --serif:"Instrument Serif",Georgia,serif;
+  --fs-title:48px; --fs-section:14px; --fs-kpi:32px; --fs-body:14px; --fs-small:12px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground);color:var(--text)}
+body{font:400 var(--fs-body)/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num,table,.kpi .v,.t-time{font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0;font-weight:600}
+p{margin:0}
+[hidden]{display:none!important}
+
+/* Shell */
+.app{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:22px;padding:28px 12px 20px;border-right:1px solid var(--border);background:var(--ground)}
+.brand{display:flex;align-items:center;gap:10px;padding:0 10px}
+.brand svg{flex:0 0 auto}
+.brand b{display:block;font-weight:600;font-size:14px;line-height:1.2}
+.brand span{display:block;font-size:12px;color:var(--muted)}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav .grp{font-size:12px;color:var(--muted);padding:0 10px 6px}
+.nav a{display:flex;align-items:center;gap:10px;height:32px;padding:0 10px;border-radius:9px;text-decoration:none;color:#373737}
+.nav a svg{width:16px;height:16px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.nav a:hover{background:var(--surface)}
+.nav a[aria-current="page"]{background:#ececec;color:var(--text)}
+.side .foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding:0 10px}
+.side .foot label{font-size:12px;color:var(--muted)}
+select{height:var(--control-height);width:100%;padding:0 32px 0 12px;border:1px solid var(--control);border-radius:10px;background:var(--ground) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23636363' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none}
+.side .foot a{font-size:12px;color:var(--muted)}
+
+.canvas{padding:72px 48px 64px}
+.col{max-width:1100px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
+.s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}.s9{grid-column:span 9}.s12{grid-column:span 12}
+
+/* Title row */
+.title{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:50px}
+.title h1{font:400 var(--fs-title)/1.05 var(--serif);letter-spacing:-0.01em}
+.title .sub{margin-top:10px;font-size:16px;color:var(--muted);max-width:62ch}
+.title .sub b{color:var(--text);font-weight:600}
+.title.small{margin-bottom:32px}
+.title.small h1{font:400 32px/1.1 var(--serif)}
+.actions{display:flex;gap:8px;flex:0 0 auto}
+.btn{display:inline-flex;align-items:center;gap:6px;height:var(--control-height);padding:0 16px;border:0;border-radius:var(--radius-control);background:#ececec;color:var(--text);font-weight:500;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s,transform .1s}
+.btn:hover{background:#dedede}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{background:#b30000}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+
+/* Panels and tiles */
+.panel{background:var(--surface);border-radius:var(--radius-card);padding:var(--pad);min-width:0;display:flex;flex-direction:column;gap:14px}
+.panel.white{background:var(--raised);border:1px solid var(--border)}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:24px}
+.ph h2{font-size:var(--fs-section);font-weight:600}
+.ph .chip{display:inline-flex;align-items:center;height:20px;padding:0 8px;margin-left:8px;border-radius:999px;background:var(--pill-neutral-bg);color:var(--pill-neutral-ink);font-size:12px;font-weight:500}
+.ph a,.ph button.link{font-size:13px;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.ph a:hover,.ph button.link:hover{color:var(--text)}
+.kpi{min-height:128px;padding:16px;justify-content:space-between;gap:6px}
+.kpi .l{font-size:13px;color:var(--muted)}
+.kpi .v{font-size:var(--fs-kpi);line-height:1.1;font-weight:400;letter-spacing:-0.01em}
+.kpi .v small{font-size:15px;color:var(--muted);margin-left:4px}
+.kpi .c{font-size:13px;color:var(--muted)}
+.kpi.lead .v{color:var(--accent)}
+
+/* Rows */
+.rows{display:flex;flex-direction:column;gap:8px}
+.rowc{display:grid;grid-template-columns:92px minmax(0,1fr) auto;align-items:center;gap:12px;min-height:63px;padding:10px 14px;background:var(--raised);border:1px solid var(--border);border-radius:var(--radius-row)}
+.rowc .d{font-weight:600}
+.rowc .d span{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.rowc .w{min-width:0}
+.rowc .w span{display:block;font-size:12px;color:var(--muted)}
+.rowc .t-time{text-align:right;color:var(--text)}
+.rowc.mine{border-color:#f0b3b3}
+.rowc.mine .d{color:var(--accent)}
+.empty{padding:18px;border:1px dashed var(--control);border-radius:var(--radius-row);color:var(--muted);background:var(--raised)}
+
+.pill{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.pill.ok{background:var(--pill-positive-bg);color:var(--pill-positive-ink)}
+.pill.warn{background:var(--pill-warning-bg);color:var(--pill-warning-ink)}
+.pill.neu{background:var(--pill-neutral-bg);color:var(--pill-neutral-ink)}
+.pill.acc{background:var(--accent-pale);color:#8a0000}
+
+/* Season strip */
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-2px;border-radius:4px}
+#strip{display:flex;flex-wrap:wrap;gap:18px 12px;padding:8px 0 4px}
+.grp{display:flex;flex-direction:column;gap:8px;min-width:0}
+.grp .mo{font-size:12px;color:var(--muted)}
+.grp .days{display:flex;gap:4px}
+.day{flex:1 1 0;min-width:24px;height:56px;border-radius:9px;background:#f2f2f2;color:#6a6a6a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:14px;line-height:1.1;font-variant-numeric:tabular-nums;position:relative}
+.day small{font-size:11px;font-weight:400;opacity:.85}
+.day.on{background:var(--accent);color:#fff;font-weight:600}
+.day.maybe{background:#fbe3e3;color:#8a0000}
+.day.req{box-shadow:inset 0 0 0 2px #242424}
+.day.off{background:transparent;border:1.5px dashed #cfcfcf;color:#959595}
+.day.gap{flex:3 1 0;font-size:12px;padding:0 6px;text-align:center;line-height:1.2}
+.day.past{opacity:.45}
+.day .call{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;color:var(--text);white-space:nowrap}
+.grp .days{padding-top:18px}
+@media (max-width:640px){#strip{gap:14px 12px}.grp{flex:0 0 auto!important}.day{flex:0 0 36px}.day.gap{flex:0 0 116px}}
+.strip-note{font-size:13px;color:var(--muted)}
+
+/* Solo card */
+.solo .piece{font:400 26px/1.15 var(--serif)}
+.solo .by{color:var(--muted)}
+.solo dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0;font-size:13px}
+.solo dt{color:var(--muted)}
+.solo dd{margin:0}
+.solo .pills{display:flex;flex-wrap:wrap;gap:6px}
+.foot-act{margin-top:auto;align-self:flex-start}
+
+/* Starry Night panel */
+.sn{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:start}
+.sn img{width:96px;height:96px;object-fit:cover;border-radius:12px}
+.levels{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:4px}
+.levels i{display:block;height:8px;border-radius:4px;background:var(--mark)}
+.levels i.done{background:var(--accent)}
+.levels i.next{background:var(--accent-pale);outline:1px solid var(--accent);outline-offset:-1px}
+
+/* Practice */
+.metro{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.drum{width:112px;height:112px;flex:0 0 auto;border-radius:50%;border:8px solid var(--text);background:var(--raised);display:grid;place-items:center;cursor:pointer;transition:transform .07s,background-color .07s}
+.drum b{display:block;font-size:30px;font-weight:400;line-height:1}
+.drum small{display:block;font-size:12px;color:var(--muted)}
+.drum.hit{transform:scale(.94)}
+.drum.accent{background:var(--accent-pale)}
+.beats{display:flex;gap:6px}
+.beats i{width:10px;height:10px;border-radius:50%;background:var(--mark)}
+.beats i.on{background:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.mside{flex:1;min-width:180px;display:flex;flex-direction:column;gap:10px}
+.metro-tips{margin-top:auto;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+#week{width:100%;height:150px;display:block}
+#week text{font:12px var(--sans);fill:var(--muted)}
+.statline{display:flex;gap:24px;font-size:13px;color:var(--muted)}
+.statline b{display:block;font-size:22px;font-weight:400;color:var(--text)}
+
+/* Tables */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:12px;font-weight:500;color:var(--muted);text-align:left;padding:0 12px 10px;white-space:nowrap}
+td{padding:12px;border-top:1px solid var(--rule);vertical-align:top}
+td.r,th.r{text-align:right}
+tr.mine td{background:#fdf2f2}
+tr.mine td:first-child{color:var(--accent);font-weight:600}
+tr.dim td{color:#9aa0a8}
+td .sub{display:block;font-size:12px;color:var(--muted)}
+
+details.q{background:var(--raised);border:1px solid var(--border);border-radius:var(--radius-row);padding:0 16px}
+details.q+details.q{margin-top:8px}
+details.q summary{cursor:pointer;min-height:56px;display:flex;align-items:center;font-weight:500;list-style:none}
+details.q summary::-webkit-details-marker{display:none}
+details.q summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
+details.q[open] summary::after{transform:rotate(-135deg)}
+details.q p{padding:0 0 16px;color:var(--text);max-width:68ch}
+.credits{font-size:12px;color:var(--muted);max-width:90ch}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;background:var(--text);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+.view{display:none}
+.view.on{display:block;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Phone top bar and sheet */
+.topbar{display:none}
+@media (max-width:1100px){
+  .app{grid-template-columns:1fr}
+  .side{display:none}
+  .topbar{display:flex;position:sticky;top:0;z-index:10;height:calc(52px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));align-items:center;justify-content:space-between;gap:12px;background:var(--ground);border-bottom:1px solid var(--border)}
+  .topbar .brand{padding:0}
+  .topbar .brand b{font-size:15px}
+  .menu-open .side{display:flex;position:fixed;inset:0;z-index:30;height:100%;width:100%;padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border:0}
+  .menu-open .side .close{display:inline-flex}
+  .canvas{padding:32px max(24px,env(safe-area-inset-right,0px)) 48px max(24px,env(safe-area-inset-left,0px))}
+  .s3{grid-column:span 6}.s9,.s8,.s7,.s6,.s5,.s4{grid-column:span 12}
+}
+.side .close{display:none;align-self:flex-end;margin-right:4px}
+@media (max-width:640px){
+  .canvas{padding:24px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+  .title{flex-direction:column;align-items:flex-start;margin-bottom:28px}
+  .title h1{font-size:30px}
+  .title .sub{font-size:14px}
+  .grid{gap:12px}
+  .kpi{min-height:112px}
+  .kpi .v{font-size:26px}
+  .rowc{grid-template-columns:70px minmax(0,1fr) auto}
+  .sn{grid-template-columns:72px minmax(0,1fr)}
+  .sn img{width:72px;height:72px}
+  table.cards thead{display:none}
+  table.cards tr{display:block;border-top:1px solid var(--rule);padding:10px 0}
+  table.cards td{display:block;border:0;padding:2px 0}
+  table.cards td.r{text-align:left}
+  tr.mine td:first-child{color:var(--accent);font-weight:600}
+}
+@media (prefers-reduced-motion:reduce){.view.on{animation:none}.btn,.drum,.toast{transition:none}}
+
+/* ===== Bold school spirit: Columbus cardinal red, dark top bar, crisp white cards ===== */
+:root{
+  --ground:#f4f4f4; --surface:#ffffff; --raised:#ffffff; --border:#e2e2e2; --rule:#ececec;
+  --text:#1c1c1c; --muted:#5f5f5f; --accent:#db0000; --accent-dark:#a80000; --accent-pale:#fde8e8;
+  --ink-bar:#1c1c1c;
+  --sans:"Open Sans",system-ui,sans-serif; --serif:"Zilla Slab",Georgia,serif;
+  --radius-card:16px; --radius-row:12px;
+  --fs-body:15px; --fs-section:17px; --fs-kpi:36px;
+}
+body{font:400 15px/1.5 var(--sans);background:var(--ground)}
+/* top navigation bar (desktop) */
+.app{display:block}
+.side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:28px;padding:0 max(32px,env(safe-area-inset-right,0px)) 0 max(32px,env(safe-area-inset-left,0px));min-height:64px;border:0;background:var(--ink-bar);color:#fff}
+.side .brand b{font:700 17px/1.1 var(--serif);color:#fff}
+.side .brand span{color:#bdbdbd}
+.nav{flex-direction:row;gap:4px;flex:1}
+.nav .grp{display:none}
+.nav a{height:64px;border-radius:0;padding:0 14px;color:#d6d6d6;font-weight:600;font-size:14px;box-shadow:inset 0 -3px 0 transparent}
+.nav a svg{display:none}
+.nav a:hover{background:transparent;color:#fff}
+.nav a[aria-current="page"]{background:transparent;color:#fff;box-shadow:inset 0 -3px 0 var(--accent)}
+.side .foot{margin:0;flex-direction:row;align-items:center;gap:10px;padding:0}
+.side .foot label{color:#bdbdbd;white-space:nowrap}
+.side .foot a{display:none}
+.side select{width:210px;background-color:#2c2c2c;border-color:#444;color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ffffff' fill='none' stroke-width='1.5'/%3E%3C/svg%3E")}
+.canvas{padding:32px 40px 64px}
+.col{max-width:1180px}
+/* the red band */
+.band{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center;background:var(--accent);color:#fff;border-radius:20px;padding:36px 40px;margin-bottom:var(--gap)}
+.band h1{font:700 52px/1.02 var(--serif);letter-spacing:-0.01em;color:#fff}
+.band .sub{margin-top:12px;font-size:18px;line-height:1.45;color:#ffe9e9;max-width:56ch}
+.band .sub b{color:#fff;font-weight:700}
+.band .actions{margin-top:24px}
+.band-count{display:flex;flex-direction:column;align-items:flex-end;text-align:right;padding-left:32px;border-left:1px solid rgba(255,255,255,.35)}
+.band-count b{font:700 96px/.9 var(--serif);color:#fff}
+.band-count span{font-size:15px;font-weight:600;color:#fff;margin-top:6px}
+.band-count .when{font-weight:400;color:#ffe9e9;margin-top:2px}
+.btn{height:42px;padding:0 20px;font-weight:600;font-size:14px;background:#ececec}
+.btn.white{background:#fff;color:var(--accent-dark)}
+.btn.white:hover{background:#ffecec}
+.btn.outline{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.btn.outline:hover{background:rgba(255,255,255,.12)}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-dark)}
+.btn.sm{height:34px;padding:0 14px;font-size:13px}
+/* cards */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-card);padding:22px 24px;gap:16px}
+.panel.white{border-color:var(--border)}
+.ph h2{font:700 17px/1.2 var(--sans)}
+.ph .chip{background:#f1f1f1;color:#3a3a3a}
+.ph a,.ph button.link{color:var(--accent-dark);font-weight:600}
+.kpi{min-height:120px;padding:20px 22px}
+.kpi .l{font-size:13px;font-weight:600;color:var(--muted)}
+.kpi .v{font:700 var(--fs-kpi)/1 var(--serif);color:var(--text)}
+.kpi .v small{font:600 15px var(--sans)}
+.kpi .c{font-size:13px}
+/* rows become a divided list, not boxes */
+.rows{gap:0}
+.rowc{background:transparent;border:0;border-radius:0;border-top:1px solid var(--rule);min-height:58px;padding:10px 0}
+.rows .rowc:first-child{border-top:0}
+.rowc .d{font:700 16px/1.2 var(--serif)}
+.rowc.mine{border-color:var(--rule)}
+.rowc.mine .d{color:var(--accent)}
+.rowc .t-time{font-weight:600}
+.empty{border-radius:12px}
+/* solo */
+.solo .piece{font:700 26px/1.12 var(--serif)}
+/* season tiles */
+.day{border-radius:8px;background:#ededed;color:#555}
+@media (min-width:1101px){.day{height:84px;font-size:18px;font-weight:600}.day small{font-size:11px;font-weight:600}.day.off{font-weight:400}#strip{padding-top:16px}}
+.day.on{background:var(--accent)}
+.day.req{box-shadow:inset 0 0 0 2px #1c1c1c}
+.grp .mo{font-weight:600;color:#3a3a3a}
+/* starry */
+.levels i{height:10px}
+/* metronome */
+.drum{border-color:var(--accent)}
+.drum b{font:700 32px/1 var(--serif)}
+.statline b{font:700 24px/1.1 var(--serif)}
+/* tables */
+th{font-size:12px;font-weight:600;color:var(--muted)}
+td{border-top:1px solid var(--rule)}
+tr.mine td{background:#fff5f5}
+.title.small h1{font:700 36px/1.1 var(--serif)}
+.title.small{margin:8px 0 24px}
+details.q{border-radius:12px}
+details.q summary{font-weight:600}
+/* tablet and phone */
+@media (max-width:1100px){
+  .side{display:none}
+  .topbar{background:var(--ink-bar);border:0;color:#fff;height:calc(56px + env(safe-area-inset-top,0px))}
+  .topbar .brand b{color:#fff;font:700 17px var(--serif)}
+  .topbar .btn{background:#333;color:#fff}
+  .menu-open .side{display:flex;flex-direction:column;align-items:stretch;gap:24px;background:var(--ink-bar)}
+  .menu-open .side .nav{flex-direction:column;flex:0}
+  .menu-open .side .nav a{height:48px;padding:0 4px;font-size:17px;box-shadow:none}
+  .menu-open .side .nav a[aria-current="page"]{color:#fff;box-shadow:inset 3px 0 0 var(--accent);padding-left:14px}
+  .menu-open .side .foot{flex-direction:column;align-items:stretch;margin-top:auto}
+  .menu-open .side select{width:100%}
+  .menu-open .side .foot a{display:block;color:#bdbdbd}
+  .canvas{padding:20px max(20px,env(safe-area-inset-right,0px)) 48px max(20px,env(safe-area-inset-left,0px))}
+  .band{padding:28px}
+}
+@media (max-width:640px){
+  .canvas{padding:16px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+  .band{grid-template-columns:1fr;gap:20px;padding:24px 22px;border-radius:16px}
+  .band h1{font-size:36px}
+  .band .sub{font-size:16px}
+  .band .actions{flex-wrap:wrap}
+  .band-count{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 10px;text-align:left;padding:16px 0 0;border-left:0;border-top:1px solid rgba(255,255,255,.35)}
+  .band-count b{font-size:56px}
+  .band-count span{margin:0}
+  .band-count .when{flex-basis:100%}
+  .kpi .v{font-size:28px}
+  .panel{padding:18px}
+}
+.tally{margin-top:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--rule);padding-top:16px}
+.tally div{display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--muted)}
+.tally b{font:700 26px/1 var(--serif);color:var(--text)}
+@media (max-width:640px){.tally{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}}
+#road{width:100%;height:200px;display:block;overflow:visible}
+#road text{font-family:var(--sans);fill:#5f5f5f;font-size:12px}
+#road .ms{font:700 15px var(--serif);fill:#1c1c1c}
+#road .msd{font-size:13px;fill:#1c1c1c;font-weight:600}
+#road .mo{font-size:12px;fill:#5f5f5f;font-weight:600}
+#road circle.n{transition:r .15s}
+#road g.pt:hover circle.n{r:9}
+.legend i.dot{width:10px;height:10px;border-radius:50%}
+@media (max-width:640px){#road{height:210px}}
+.calnav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.btn.arrow{width:36px;padding:0;justify-content:center;font-size:20px;line-height:1}
+.btn.arrow:disabled{opacity:.35;cursor:default}
+.cal{display:flex;align-items:flex-start;gap:28px;overflow-x:auto;overflow-y:hidden;transition:height .25s ease;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 2px 12px;scrollbar-width:thin}
+.cal:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:8px}
+.mon{flex:0 0 calc(50% - 14px);scroll-snap-align:start;min-width:0}
+.mon h3{display:flex;align-items:baseline;gap:8px;font:700 22px/1.2 var(--serif);margin:0 0 12px}
+.mon h3 small{font:400 14px var(--sans);color:#8a8a8a}
+.mon .wk,.mon .dg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.mon .wk span{font-size:12px;font-weight:600;color:#7a7a7a;padding:0 0 6px 8px}
+.mon .dg>div{position:relative;min-height:70px;border-radius:10px;background:#fafafa;padding:7px 8px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;min-width:0}
+.mon .dg>div.x{background:transparent}
+.mon .dg>div b{font-size:14px;font-weight:600;color:#3a3a3a;font-variant-numeric:tabular-nums}
+.mon .dg>div.we b{color:#a8a8a8}
+.mon .dg>div em{font-style:normal;font-size:11px;font-weight:700;line-height:1.15;overflow-wrap:normal;word-break:keep-all}
+.mon .dg>div.on{background:var(--accent)}
+.mon .dg>div.on b,.mon .dg>div.on em{color:#fff}
+.mon .dg>div.no{background:#ebebeb}
+.mon .dg>div.no em{color:#5f5f5f;font-weight:600}
+.mon .dg>div.adv{background:#fde8e8;box-shadow:inset 0 0 0 1.5px var(--accent)}
+.mon .dg>div.adv b,.mon .dg>div.adv em{color:#8a0000}
+.mon .dg>div.req{box-shadow:inset 0 0 0 2.5px #1c1c1c}
+.mon .dg>div.off em{color:#a0a0a0;font-weight:600}
+.mon .dg>div.off b{color:#a0a0a0}
+.mon .dg>div.today{box-shadow:inset 0 0 0 2px var(--accent)}
+.mon .dg>div.today b{color:var(--accent)}
+.mon .dg>div.past{opacity:.45}
+.mon .gap{grid-column:1/-1;margin-top:8px;padding:12px;border-radius:10px;border:1.5px dashed #cfcfcf;color:#7a7a7a;font-size:13px;text-align:center}
+@media (max-width:640px){.cal{gap:16px}.mon{flex-basis:100%}.mon .dg>div{min-height:62px;padding:5px 4px}.mon .dg>div em{font-size:11px;letter-spacing:-0.01em}.mon .wk span{padding-left:4px}.calnav{width:100%;justify-content:flex-end}.calnav .legend{flex-basis:100%;order:2;justify-content:flex-start}.mon .dg>div em{display:none}.mon .agenda{display:flex!important}}
+.mon .agenda{display:none;flex-direction:column;margin:12px 0 0;padding:0;list-style:none}
+.mon .agenda li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--rule);font-size:14px}
+.mon .agenda li b{font:700 15px var(--serif)}
+.mon .agenda li.mine b{color:var(--accent)}
+.mon .agenda li span{color:var(--muted);text-align:right}
+.legend i.sq{width:12px;height:12px;border-radius:3px}
+@media (max-width:1100px){.cal{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.cal{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}.mon .dg span{font-size:12px;border-radius:5px}}
+
+/* ===== Option D: planner with a side rail ===== */
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:var(--gap);align-items:stretch;margin-bottom:var(--gap)}
+.rail>.panel:last-child{flex:1}
+.rail>.panel:last-child #week{flex:1;min-height:90px;height:auto}
+
+.maincol,.rail{display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.greet{padding:8px 0 10px}
+.greet h1{font:700 48px/1.05 var(--serif);color:var(--text)}
+.greet .sub{margin-top:8px;font-size:17px;color:var(--muted);max-width:60ch}
+.greet .sub b{color:var(--text)}
+.nextup{background:var(--accent);color:#fff;border-radius:var(--radius-card);padding:26px 26px 24px;display:flex;flex-direction:column;gap:4px}
+.nextup .nl{font-size:13px;font-weight:600;color:#ffdede}
+.nextup .nd{font:700 34px/1.1 var(--serif);color:#fff;margin-top:4px}
+.nextup .nw{font-size:15px;color:#ffe9e9}
+.nextup .nn{margin-top:18px;display:flex;flex-direction:column}
+.nextup .nn b{font:700 84px/.9 var(--serif);color:#fff}
+.nextup .nn span{font-size:15px;font-weight:600;color:#fff;margin-top:6px}
+.nextup .actions{margin-top:20px;flex-wrap:wrap}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--rule)}
+.panel .ph+.crow{border-top:0;padding-top:0}
+.crow b{display:block;font-weight:600;font-size:15px}
+.crow span{display:block;font-size:13px;color:var(--muted)}
+.crow .cv{text-align:right}
+.crow .cv b{font:700 28px/1 var(--serif)}
+.rail .statline{gap:22px}
+.rail #week{height:120px}
+.metro-wide{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"ph ph" "m b";gap:14px 28px;align-items:center}
+.metro-wide .ph{grid-area:ph}
+.metro-wide .metro{grid-area:m;flex-wrap:nowrap}
+.metro-wide .mside{min-width:220px}
+.metro-wide .btns{grid-area:b;justify-content:flex-end}
+@media (max-width:760px){.metro-wide{display:flex}.metro-wide .btns{justify-content:flex-start}}
+.maincol .mon{flex-basis:calc(50% - 14px)}
+.maincol .mon .dg>div{min-height:62px;padding:6px 6px}
+.snwide .snrow{display:grid;grid-template-columns:120px minmax(0,1fr);gap:22px;align-items:center}
+.snwide img{width:120px;height:120px;object-fit:cover;border-radius:14px}
+.snbody{display:flex;flex-direction:column;gap:14px;min-width:0}
+.stepper{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.stepper li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.stepper i{display:block;height:8px;border-radius:4px;background:#e2e2e2}
+.stepper li.done i{background:var(--accent)}
+.stepper li.next i{background:#fde8e8;box-shadow:inset 0 0 0 1.5px var(--accent)}
+.stepper .sn-n{font-size:12px;color:var(--muted)}
+.stepper li.next .sn-n{color:var(--accent);font-weight:600}
+.stepper .sn-t{font-size:14px;font-weight:600}
+@media (max-width:1100px){.dgrid{grid-template-columns:1fr}.rail{display:grid;grid-template-columns:1fr 1fr}.nextup{grid-column:1/-1}}
+@media (max-width:760px){.rail{display:flex}.stepper{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:16px}.snwide .snrow{grid-template-columns:1fr}.snwide img{width:100%;height:140px}}
+@media (max-width:640px){.greet h1{font-size:34px}.greet .sub{font-size:15px}.nextup .nn b{font-size:64px}.maincol .mon{flex-basis:100%}}
+.snwide{margin-bottom:0}
+.botrow{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:var(--gap);margin-bottom:var(--gap)}
+.pracbox #week{flex:none;height:130px}
+@media (max-width:1100px){.botrow{grid-template-columns:1fr}}
+.mon .dg>div.tap{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.mon .dg>div.tap:hover{transform:translateY(-1px);box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.mon .dg>div.tap:focus-visible{outline:3px solid #1c1c1c;outline-offset:2px}
+#nightDlg{border:0;border-radius:20px;padding:0;width:min(460px,calc(100vw - 32px));max-height:calc(100vh - 48px);box-shadow:0 20px 60px rgba(0,0,0,.35);color:#1c1c1c;background:#fff;color-scheme:light}
+#nightDlg h2,#nightDlg .nd-row,#nightDlg .nd-row b{color:#1c1c1c}
+#nightDlg .nd-note{color:#1c1c1c}#nightDlg .nd-note.req{color:#fff}
+#nightDlg .nd-row{border-top-color:#ececec}
+#nightDlg::backdrop{background:rgba(20,20,20,.55)}
+#nightDlg .nd-in{padding:22px 24px 24px}
+#nightDlg .nd-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+#nightDlg .nd-day{margin:0 0 2px;font-size:13px;color:#a80000;font-weight:600}
+#nightDlg h2{margin:0;font:700 24px/1.15 'Zilla Slab',Georgia,serif}
+#nightDlg .nd-row{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:10px 0;border-top:1px solid #ececec;font-size:15px}
+#nightDlg .nd-row b{font-variant-numeric:tabular-nums;font-weight:600}
+#nightDlg .nd-row.me{background:#fde8e8;margin:0 -10px;padding:10px;border-radius:10px;border-top-color:transparent}
+#nightDlg .nd-row.me .nd-who::after{content:" · you";color:#a80000;font-weight:700}
+#nightDlg .nd-note{margin:14px 0 0;padding:12px 14px;border-radius:12px;background:#f4f4f4;font-size:14px}
+#nightDlg .nd-note.req{background:#1c1c1c;color:#fff}
+@media (prefers-reduced-motion:reduce){.mon .dg>div.tap{transition:none}.mon .dg>div.tap:hover{transform:none}}
+.remind{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 20px;padding:14px 18px;border-radius:16px;background:#1c1c1c;color:#fff}
+.remind .rb{flex:0 0 auto;background:#db0000;color:#fff;font:700 13px/1 'Open Sans',sans-serif;padding:8px 12px;border-radius:999px;white-space:nowrap}
+.remind .rt{flex:1 1 260px;min-width:0;font-size:15px;line-height:1.4}
+.remind .rt b{font:700 17px/1.2 'Zilla Slab',Georgia,serif;display:block}
+.remind .rt span{color:#d6d6d6}
+.remind .ra{display:flex;gap:8px;flex-wrap:wrap}
+.remind .ra .btn{background:#fff;color:#1c1c1c}
+.remind .ra .btn.ghost2{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+</style>
+</head>
+<body>
+
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand"><img src="img/cardinal.png" width="28" height="28" alt="Columbus Cardinals" style="flex:0 0 auto;border-radius:50%"><b id="topTitle">Home</b></div>
+    <button class="btn sm" id="menuBtn" aria-expanded="false" aria-controls="side">Menu</button>
+  </header>
+
+  <aside class="side" id="side" aria-label="Navigation">
+    <button class="btn sm close" id="closeBtn">Close</button>
+    <div class="brand">
+      <img src="img/cardinal.png" width="32" height="32" alt="Columbus Cardinals" style="flex:0 0 auto;border-radius:50%">
+      <div><b>Columbus Percussion</b><span>Solo &amp; Ensemble 2026–27</span></div>
+    </div>
+    <nav class="nav" aria-label="Screens">
+      <a href="#home" data-v="home"><svg viewBox="0 0 16 16"><path d="M2.5 7.5 8 3l5.5 4.5V13H9.5V9.5h-3V13h-4z"/></svg>Home</a>
+      <a href="#schedule" data-v="schedule"><svg viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="10" rx="1.5"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></svg>Schedule</a>
+      <a href="#solos" data-v="solos"><svg viewBox="0 0 16 16"><path d="M6 12.5V3.5l7-1.5v9"/><circle cx="4.5" cy="12.5" r="1.8"/><circle cx="11.5" cy="11" r="1.8"/></svg>Solos</a>
+      <a href="#starry" data-v="starry"><svg viewBox="0 0 16 16"><path d="M8 2.5l1.6 3.4 3.7.4-2.8 2.5.8 3.7L8 10.6l-3.3 1.9.8-3.7-2.8-2.5 3.7-.4z"/></svg>Starry Night</a>
+      <a href="#practice" data-v="practice"><svg viewBox="0 0 16 16"><path d="M5 13.5h6l-1.5-11h-3z"/><path d="M8 11 11.5 4"/></svg>Practice</a>
+    </nav>
+    <div class="foot">
+      <label for="who">Viewing as</label>
+      <select id="who"><option value="">Everyone</option></select>
+      <a href="https://drive.google.com/drive/folders/1kCTZaUIpDqV8PoDZUQ6hqRNZQNcTloiu?usp=drive_link" target="_blank" rel="noopener">Starry Night music folder</a>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="col">
+    <div class="remind" id="remind" hidden role="status"></div>
+
+    <!-- HOME -->
+    <section class="view" id="v-home" aria-labelledby="homeH">
+      <div class="dgrid">
+        <div class="maincol">
+          <div class="greet"><h1 id="homeH">Columbus Percussion</h1><p class="sub" id="homeSub"></p></div>
+          <div class="panel white">
+            <div class="ph"><h2>Season calendar<span class="chip num" id="stripChip"></span></h2><div class="calnav"><div class="legend" id="legend"></div><button class="btn sm arrow" id="calPrev" aria-label="Previous month">‹</button><button class="btn sm arrow" id="calNext" aria-label="Next month">›</button></div></div>
+            <div class="cal" id="cal" tabindex="0" aria-label="Season calendar, November 2026 to April 2027. Scroll sideways for more months."></div>
+            <p class="strip-note" id="stripNote"></p>
+            <div class="tally" id="tally"></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h2>Coming up<span class="chip num" id="upChip"></span></h2><a href="#schedule">View all</a></div>
+            <div class="rows" id="upRows"></div>
+          </div>
+          <div class="panel snwide">
+            <div class="ph"><h2>Starry Night</h2><a href="#starry">Parts and goals</a></div>
+            <div class="snrow">
+              <img src="img/starry-night.jpg" width="120" height="120" alt="The Starry Night by Vincent van Gogh">
+              <div class="snbody">
+                <p><b>John Willmarth</b>, for percussion ensemble · 10 players on 10 required parts, 1 optional · <span id="snLevel"></span></p>
+                <ol class="stepper" id="snBar"></ol>
+                <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn sm primary" id="snMusic" target="_blank" rel="noopener" hidden>Open your part</a><a class="btn sm" id="snRec" target="_blank" rel="noopener">Listen to the recording</a></div>
+              </div>
+            </div>
+            <div hidden id="snRows"></div>
+          </div>
+        </div>
+        <aside class="rail" aria-label="Your next night and your season">
+          <div class="nextup" aria-live="polite">
+            <p class="nl">Next up</p>
+            <p class="nd" id="nextW">—</p>
+            <p class="nw" id="nextWhat"></p>
+            <p class="nn"><b class="num" id="nextN">—</b><span id="nextL">days to go</span></p>
+            <div class="actions"><button class="btn white" id="quickLog">Log 15 min practice</button><button class="btn outline" id="pickBtn">Choose your name</button></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h2>Countdown</h2></div>
+            <div class="crow"><div><b>District Solo &amp; Ensemble</b><span id="k2c"></span></div><div class="cv"><b class="num" id="k2n"></b><span>days</span></div></div>
+            <div class="crow"><div><b>State Solo &amp; Ensemble</b><span id="k3c"></span></div><div class="cv"><b class="num" id="k3n"></b><span>days</span></div></div>
+            <div class="crow"><div><b id="k1l">Lessons</b><span id="k1c"></span></div><div class="cv"><b class="num" id="k1v">—</b><span>start</span></div></div>
+            <span hidden id="k2v"></span><span hidden id="k3v"></span>
+          </div>
+          <div class="panel" id="alertCard" hidden></div>
+          <div class="panel solo" id="soloCard"></div>
+        </aside>
+      </div>
+      <div class="botrow">
+        <div class="panel metro-wide">
+          <div class="ph"><h2>Metronome</h2><span class="strip-note" id="tempoName">Andante, 96 a minute</span></div>
+          <div class="metro">
+            <button class="drum" id="drum" aria-label="Start or stop the metronome"><span><b class="num" id="bpmV">96</b><small id="drumU">Start</small></span></button>
+            <div class="mside">
+              <div class="beats" id="beats"><i></i><i></i><i></i><i></i></div>
+              <label class="strip-note" for="bpm">Tempo</label>
+              <input type="range" id="bpm" min="40" max="208" value="96">
+            </div>
+          </div>
+          <div class="btns"><button class="btn sm" id="minus">Slower</button><button class="btn sm" id="plus">Faster</button><button class="btn sm" id="tap">Tap tempo</button><button class="btn sm" id="meter">4/4</button></div>
+        </div>
+          <div class="panel pracbox">
+            <div class="ph"><h2>Practice this week</h2><a href="#practice">Log</a></div>
+            <div class="statline"><div><b class="num" id="k4v">0</b>minutes</div><div><b class="num" id="streak">0</b>day streak</div><div><b class="num" id="total">0</b>this season</div></div>
+            <span hidden id="k4c"></span>
+            <svg id="week" role="img" aria-label="Minutes practised on each of the last seven days"></svg>
+          </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="view" id="v-schedule" aria-labelledby="schH">
+      <div class="title small"><div><h1 id="schH">Schedule</h1><p class="sub" id="schSub">Every Thursday in the Columbus High School band room, Nov 19 to Apr 22, plus the two festival Saturdays.</p></div></div>
+      <div class="panel white"><div class="tablewrap"><table class="cards" id="schTable"></table></div></div>
+    </section>
+
+    <!-- SOLOS -->
+    <section class="view" id="v-solos" aria-labelledby="solH">
+      <div class="title small"><div><h1 id="solH">Solos</h1><p class="sub" id="solSub"></p></div><div class="actions"><a class="btn" href="https://www.wsmamusic.org/music-list" target="_blank" rel="noopener">WSMA music list</a></div></div>
+      <div class="panel white"><div class="tablewrap"><table class="cards" id="solTable"></table></div></div>
+    </section>
+
+    <!-- STARRY NIGHT -->
+    <section class="view" id="v-starry" aria-labelledby="stH">
+      <div class="title small"><div><h1 id="stH">Starry Night</h1><p class="sub">John Willmarth, for percussion ensemble. 10–11 players. Parts are handed out at the kickoff on Thu Nov 19. Tap a part name to open its music.</p><p style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><a class="btn sm primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1A65uWnWEyY78ztA-Yurn_wUcjQvGs4F8/view?usp=drive_link">Listen to the recording</a><a class="btn sm" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1V-jX6nYQShvaE1sRRc3JEAGH3tiTnLfG/view?usp=drive_link">Full score</a><a class="btn sm" target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/1kCTZaUIpDqV8PoDZUQ6hqRNZQNcTloiu?usp=drive_link">All parts (folder)</a></p></div></div>
+      <div class="grid">
+        <div class="panel white s7"><div class="ph"><h2>Parts<span class="chip">11</span></h2><span class="strip-note">10 required · 1 optional</span></div><div class="tablewrap"><table class="cards" id="partsTable"></table></div></div>
+        <div class="panel s5"><div class="ph"><h2>Goal for each ensemble night</h2></div><div class="rows" id="lvlRows"></div></div>
+      </div>
+      <p class="credits" style="margin-top:32px">Picture: <a href="https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" target="_blank" rel="noopener">The Starry Night</a> by Vincent van Gogh, public domain, via Wikimedia Commons.</p>
+    </section>
+
+    <!-- PRACTICE -->
+    <section class="view" id="v-practice" aria-labelledby="prH">
+      <div class="title small"><div><h1 id="prH">Practice</h1><p class="sub">Your log stays on this device only. Nobody else sees it.</p></div></div>
+      <div class="grid">
+        <div class="panel s6">
+          <div class="ph"><h2>Log a session</h2></div>
+          <div class="btns"><button class="btn primary" data-min="10">Add 10 min</button><button class="btn primary" data-min="15">Add 15 min</button><button class="btn primary" data-min="30">Add 30 min</button><button class="btn" id="undo">Undo last</button></div>
+          <p id="cheer" class="strip-note"></p>
+        </div>
+        <div class="panel s6">
+          <div class="ph"><h2>Tips from the percussion room</h2></div>
+          <div class="rows">
+            <div class="rowc" style="grid-template-columns:1fr"><span>Learn it slow with the metronome, then press Faster after each clean run-through.</span></div>
+            <div class="rowc" style="grid-template-columns:1fr"><span>Record yourself once a week and listen back.</span></div>
+            <div class="rowc" style="grid-template-columns:1fr"><span>Bring sticks or mallets, your music, a pencil and water every Thursday.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    </div>
+  </main>
+  <dialog id="nightDlg" aria-labelledby="ndH"><div class="nd-in"><div class="nd-top"><div><p class="nd-day" id="ndDay"></p><h2 id="ndH"></h2></div><button class="btn sm" id="ndX" aria-label="Close">Close</button></div><div id="ndBody"></div></div></dialog>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+const D=(y,m,d)=>new Date(y,m-1,d);
+const today=new Date();today.setHours(0,0,0,0);
+const days=d=>Math.round((d-today)/864e5);
+const fmt=(d,o)=>d.toLocaleDateString('en-US',o||{weekday:'short',month:'short',day:'numeric'});
+const md=d=>fmt(d,{month:'short',day:'numeric'});
+
+// ---- Season data ----
+const ENS=[D(2026,11,19),D(2026,12,3),D(2026,12,17),D(2027,1,14),D(2027,1,28),D(2027,2,11)];
+const LES=[D(2026,12,10),D(2027,1,7),D(2027,1,21),D(2027,2,4),D(2027,2,18)];
+const SOLO=['Jaspar','Kayla','Ariana','Evangeline','Jordan','Leverett'];
+const SOLO_T=['5:20–5:50','6:00–6:30','6:35–7:05','7:10–7:40','7:45–8:15','8:15–8:45'];
+const ENSEMBLE=['Kayla','Karsyn','Shepard','Leverett','Lily','Jordan','Ariana','Evangeline','Jaspar','Samantha'];
+const ALL=[...ENSEMBLE].sort((a,b)=>a.localeCompare(b));
+const LEVELS=[['To letter A','Bars 1–20 · 20 bars. Get your part and read through'],['To letter B','Letter A, bars 21–36 · 16 bars. Slow, quarter = 85'],['To letter C','Letter B, bars 37–58 · 22 bars'],['To letter D','Letter C, bars 59–97 · 39 bars. Fast, quarter = 170'],['To letter E','Letter D, bars 98–121 · 24 bars'],['To the end','Letters E and F, bars 122–149 · 28 bars, then run the whole piece']];
+const nights=[];
+ENS.forEach((d,i)=>nights.push({d,k:'E',name:i===0?'S&E kickoff':'Ensemble night',slots:i===0?[{all:1,what:'Starry Night kickoff, ensemble only',t:'6:00–7:30'}]:[{all:1,what:'Starry Night, all ensemble',t:'6:00–7:30'},{who:'Lily',what:'Lesson',t:'7:45–8:15'},{who:'Samantha',what:'Lesson',t:'8:20–8:50'}]}));
+LES.forEach(d=>nights.push({d,k:'L',name:'Lesson night',slots:SOLO.map((w,i)=>({who:w,what:'Lesson',t:SOLO_T[i]}))}));
+nights.push({d:D(2027,2,25),k:'D',name:'Dress rehearsal',slots:[{all:1,what:'Dress rehearsal, required, stay the whole time',t:'5:00–8:00'}]});
+nights.push({d:D(2027,2,27),k:'F',name:'District Solo & Ensemble',sat:1,slots:[{all:1,what:'District festival',t:'Saturday'}]});
+[D(2027,3,4),D(2027,3,11),D(2027,3,18),D(2027,4,1),D(2027,4,8),D(2027,4,15)].forEach(d=>nights.push({d,k:'S',name:'State prep: ensemble or lessons',slots:[{all:1,what:'Ensemble or lessons, depending on who makes State',t:'5:30–8:00'}]}));
+nights.push({d:D(2027,4,22),k:'S',name:'State dress rehearsal',slots:[{all:1,what:'State dress, required if you advance',t:'5:30–7:30'}]});
+nights.push({d:D(2027,4,24),k:'F',name:'State Solo & Ensemble',sat:1,slots:[{all:1,what:'State festival',t:'Saturday'}]});
+[[D(2026,11,26),'Thanksgiving'],[D(2026,12,24),'Winter break'],[D(2026,12,31),'Winter break'],[D(2027,3,25),'Spring break']].forEach(([d,n])=>nights.push({d,k:'B',name:n+', no rehearsal',slots:[]}));
+nights.sort((a,b)=>a.d-b.d);
+const DISTRICT=D(2027,2,27),STATE=D(2027,4,24);
+console.assert(nights.filter(n=>n.k==='L').length===5&&nights.filter(n=>n.k==='E').length===6,'night counts');
+console.assert(SOLO.length===SOLO_T.length,'every lesson has a slot');
+const mineIn=(n,name)=>!name?n.slots.filter(s=>s.all).slice(0,1).concat(n.k==='L'?[{what:'Six 30-minute lessons',t:'5:20–8:45'}]:[]):n.slots.filter(s=>s.who===name||(s.all&&ENSEMBLE.includes(name)));
+
+const PIECES={
+ 'Jaspar':[['Stroll','Kyle H. Peters','Marimba, 4 mallets','WSMA 5311 · suggested Class B','permission',1,'https://drive.google.com/drive/folders/1modHsexSyG5EYtHYTCLHsUofkVoBVN0y?usp=drive_link']],
+ 'Kayla':[['Santa Fe','Larry Lawless','Marimba, 4 mallets','WSMA 5311 · suggested Class A','permission',1,'https://drive.google.com/file/d/1f-UveX74uwmwNgAhKAJMofHosA5m-HHX/view?usp=drive_link','','https://drive.google.com/file/d/1mCgTuqqanoiUVMGSG4RQHNvk_MvypQGi/view?usp=drive_link']],
+ 'Ariana':[['Engine','Hunter','Parade drum, from The Blue Book','WSMA 5121 · Class A','list',1,'https://drive.google.com/file/d/1aZG4ENEs5g6lux59HUyviPlCVdHaICLa/view?usp=drive_link']],
+ 'Evangeline':[['Three Nuevo Dances','James L. Moore','Snare drum, all three movements','WSMA 5111 · Class B','list',1,'']],
+ 'Jordan':[['…like a burden too heavy','Brian Blume','Marimba, 4 mallets','WSMA 5311 · Class A','list',1,'https://drive.google.com/file/d/1vYGg2RMdhpyAWH4OF0mMcvKtza-msWTb/view?usp=drive_link'],['Conflicting Resolutions','Darrien Spicak','Percussion duet with Leverett · you play Player 2','WSMA 5822','permission',1,'https://drive.google.com/file/d/19NEZMXw2OAf1IfJteW6oz8BhvTG3lxZ9/view?usp=drive_link','','https://drive.google.com/file/d/1yg4AxnuiocZ8LMbMtcfV5zelx7mgT7-g/view?usp=drive_link']],
+ 'Leverett':[['Soaring in the Sky','Jan Freicher','Vibraphone, from Flight','WSMA 5321 · Class A','list',1,'https://drive.google.com/file/d/1B1e-FbL-ep3BkXmpcc11HA4ckMFQSUZs/view?usp=drive_link'],['Conflicting Resolutions','Darrien Spicak','Percussion duet with Jordan · you play Player 1','WSMA 5822','permission',1,'https://drive.google.com/file/d/1vNccotoEJILtF_HRkGJZ4RBpqADZaLFo/view?usp=drive_link','','https://drive.google.com/file/d/1yg4AxnuiocZ8LMbMtcfV5zelx7mgT7-g/view?usp=drive_link']],
+ 'Lily':[['Barely Scraping By','Andrew Smit','Marching tenors','WSMA 5911 · suggested Class A','permission',1,'https://drive.google.com/file/d/1zEFBUAkuIXE-bFVgsx69Yah8R3-489Qw/view?usp=drive_link','A Tribe Called Quads, pages 16–17 (notation key on page 2)','https://drive.google.com/file/d/1SRxLltXsG2pazgS-sC-9UxS5j1zABm_s/view?usp=drive_link']],
+ 'Samantha':[['The Land of Steady Habits','Jason Baker','Marimba, 4 mallets','WSMA 5311 · Class A','permission',1,'https://drive.google.com/file/d/10f4gclnuv3elxNjwpfFi1n3K5XOfhJdo/view?usp=drive_link','','https://drive.google.com/file/d/10PUXRDpv5QC6uQmTj2qibep35FqJOPBO/view?usp=drive_link']],
+ 'Karsyn':null,'Shepard':null
+};
+const PARTS=[['Glockenspiel','',1],['Crotales','2 octaves, or glockenspiel with finger cymbals; suspended cymbal',1],['Chimes','',1],['Vibraphone 1','',1],['Vibraphone 2','',1],['Marimba 1','4-octave, or share with Marimba 4',1],['Marimba 2','4-octave',1],['Marimba 3','4-octave',1],['Marimba 4','5-octave',0],['Timpani','4 drums: 32″, 29″, 26″, 23″',1],['Percussion (combined)','Percussion 1 + 2 for one player: large tom, triangle, suspended cymbal, ride cymbal, mark tree, concert bass drum, clap stack',1]];
+console.assert(PARTS.filter(p=>p[2]).length===10&&PARTS.length===11,'parts add up');
+const ASSIGN={'Chimes':'Evangeline','Marimba 1':'Jaspar','Marimba 2':'Kayla','Marimba 3':'Leverett','Vibraphone 1':'Samantha','Crotales':'Karsyn','Glockenspiel':'Jordan','Timpani':'Shepard','Percussion (combined)':'Lily','Vibraphone 2':'Ariana'};
+const PARTLINK={'Glockenspiel':'https://drive.google.com/file/d/1APjmNnDDUOfylnaAs1Mk4Enp-KaPTXjt/view?usp=drive_link','Crotales':'https://drive.google.com/file/d/1FNjGfpOO-X5MQg-LDxBbLwnH3iCHcFVB/view?usp=drive_link','Chimes':'https://drive.google.com/file/d/15drOUXx4yJtlPdDXV8b-fTOYsLK6zT-c/view?usp=drive_link','Vibraphone 1':'https://drive.google.com/file/d/1Bpv3VSirYVSf-1ev91Wb7zSJEThgLaTe/view?usp=drive_link','Vibraphone 2':'https://drive.google.com/file/d/12Z_TzeQsqK51JhKKox0Zgw9F7XL9wLCg/view?usp=drive_link','Marimba 1':'https://drive.google.com/file/d/1dU7B4jFY1Aca-KHAeFCEBCJwCOkvv9od/view?usp=drive_link','Marimba 2':'https://drive.google.com/file/d/1bj7sEzqPCLVC-oOytH7r0KAUvEugC2fF/view?usp=drive_link','Marimba 3':'https://drive.google.com/file/d/12QRbDo7FYYa_6kfmD4Sl8jsmkk0953Un/view?usp=drive_link','Marimba 4':'https://drive.google.com/file/d/18yvt-RkMKzYLYCSQ0cwJiNl08oCts4bf/view?usp=drive_link','Timpani':'https://drive.google.com/file/d/1IaQ6r6WEylhdfkQ_zDCmYDKm8xCQBxnN/view?usp=drive_link','Percussion (combined)':'https://drive.google.com/file/d/1IQn4Ia2PJdQC00OyyXGLzxjuK7LyRPUu/view?usp=drive_link'};
+const SN_SCORE='https://drive.google.com/file/d/1V-jX6nYQShvaE1sRRc3JEAGH3tiTnLfG/view?usp=drive_link',SN_REC='https://drive.google.com/file/d/1A65uWnWEyY78ztA-Yurn_wUcjQvGs4F8/view?usp=drive_link',SN_FOLDER='https://drive.google.com/drive/folders/1kCTZaUIpDqV8PoDZUQ6hqRNZQNcTloiu?usp=drive_link';
+const partOf=n=>Object.keys(ASSIGN).find(k=>ASSIGN[k]===n)||null;
+const FAQ=[['Do I have to stay for the whole dress rehearsal?','Yes. Thu Feb 25 runs 5:00–8:00 and every student stays start to finish, because everyone plays for everyone. Thu Apr 22, 5:30–7:30, is the same for anyone going to State.'],
+['What if I can\'t make my lesson?','Tell your director as early as you can and swap with someone on the same night. Lessons are 30 minutes and start on time, so arrive five minutes early.'],
+['What do Class A and Class B mean?','WSMA sorts solos by difficulty: Class A is the hardest, Class C the most approachable. Class A gets 8 minutes on stage, B and C get 6, setup included.'],
+['How does someone get to State?','At District on Sat Feb 27, a Class A entry that earns a starred first goes on to State on Sat Apr 24. State prep runs Mar 4, 11, 18 and Apr 1, 8, 15.'],
+['What does "needs permission" mean on my solo?','The piece is not on the 2026–27 WSMA list, so your director sends WSMA a permission request. Bring the approval letter to the festival.'],
+['Where do I find my music?','In the music folder on Google Drive, linked in the menu. Bring a printed copy and a pencil every Thursday.']];
+const OFF=[['Nov 25–27','Thanksgiving break (Nov 25 from noon)'],['Fri Dec 11','No school, staff learning'],['Dec 23 – Jan 1','Winter break'],['Mon Jan 18','No school, staff learning'],['Fri Feb 19','No school, snow make-up'],['Mar 22–26','Spring break']];
+
+let store={};try{store=JSON.parse(localStorage.getItem('cp26')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('cp26',JSON.stringify(store))}catch(e){}};
+const $=id=>document.getElementById(id);
+const sel=$('who');
+ALL.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o)});
+const first=n=>n.split(' ')[0];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function myList(name){const out=[];nights.forEach(n=>{if(n.k==='B')return;mineIn(n,name).forEach(s=>out.push({n,s}))});return out}
+
+// ---- Home ----
+function renderHome(){
+  const name=sel.value,list=myList(name),up=list.filter(x=>x.n.d>=today),nx=up[0];
+  try{renderRemind()}catch(e){}
+  $('homeH').textContent=name?`Hi, ${first(name)}.`:'Columbus Percussion';
+  $('pickBtn').textContent=name?'Switch student':'Choose your name';
+  if(nx){const dd=days(nx.n.d);$('homeSub').innerHTML=`${name?'Your':'The'} next Thursday is <b>${fmt(nx.n.d,{weekday:'short',month:'short',day:'numeric'})}</b>: ${esc(nx.s.what.replace(/^(Lesson|Dress|State)/,m=>m.toLowerCase()))}${nx.s.t==='Saturday'?'':', '+nx.s.t}. ${dd===0?'That is today.':dd===1?'That is tomorrow.':dd+' days from today.'}`}
+  else $('homeSub').textContent='The season is complete. Thanks for a great year.';
+  if(nx){const dd=days(nx.n.d);$('nextN').textContent=dd;$('nextL').textContent=dd===1?'day to go':'days to go';$('nextW').textContent=fmt(nx.n.d,{weekday:'short',month:'short',day:'numeric'});$('nextWhat').textContent=(nx.s.t==='Saturday'?'Saturday':nx.s.t)+' · '+nx.s.what.split(',')[0]}else{$('nextN').textContent='✓';$('nextL').textContent='Season complete';$('nextW').textContent='Thanks for a great year';$('nextWhat').textContent=''}
+  $('k2n').textContent=Math.max(0,days(DISTRICT));$('k3n').textContent=Math.max(0,days(STATE));
+  {const i=SOLO.indexOf(name),lt=i>=0?SOLO_T[i]:name==='Lily'?'7:45–8:15':name==='Samantha'?'8:20–8:50':null;
+   $('k1l').textContent=name?'Your lesson':'Lesson nights';
+   $('k1v').textContent=lt?lt.split('–')[0]:(name?'—':'5:20');
+   $('k1c').textContent=lt?(i>=0?'Lesson nights · first Dec 10':'After ensemble · first Dec 3'):(name?'Ensemble only, no lesson':'Lesson nights from Dec 10')}
+  $('k2c').textContent='Saturday, Feb 27';$('k3c').textContent='Saturday, Apr 24';
+  // coming up
+  $('upChip').textContent=up.length;
+  $('upRows').innerHTML=up.slice(0,5).map(({n,s})=>`<div class="rowc${name?' mine':''}"><span class="d num">${md(n.d)}<span>${n.sat?'Saturday':'Thursday'}</span></span><span class="w">${esc(s.what)}<span>${esc(n.name)}</span></span><span class="t-time num">${s.t}</span></div>`).join('')||'<p class="empty">Nothing left this season.</p>';
+  // solo card
+  const ps=name?PIECES[name]:undefined,sc=$('soloCard');
+  if(!name) sc.innerHTML=`<div class="ph"><h2>Your solo</h2></div><p class="strip-note">Choose your name in the menu to see your piece, its WSMA event and your lesson time.</p><button class="btn foot-act" id="pick2">Choose your name</button>`;
+  else if(ps===null) sc.innerHTML=`<div class="ph"><h2>Your part</h2></div><p class="piece" style="font:400 26px/1.15 var(--serif)">Starry Night</p><p class="strip-note">You're in the ensemble. ${partOf(name)?`Your part: <b>${partOf(name)}</b>.`:'Parts are handed out at the kickoff on Nov 19.'}</p>`;
+  else if(!ps.length) sc.innerHTML=`<div class="ph"><h2>Your solo</h2><span class="pill neu">Not chosen yet</span></div><p class="strip-note">Pick a piece with your director at your first lesson, Thu Dec 10.</p>`;
+  else { const blk=(p,k)=>`<div${k?' style="border-top:1px solid #ececec;padding-top:16px;margin-top:4px"':''}>${ps.length>1?`<p class="strip-note" style="margin:0 0 4px">${k?'Your duet':'Your solo'}</p>`:''}<p class="piece">${esc(p[0])}</p><p class="by">${esc(p[1])}</p></div><dl><dt>Plays on</dt><dd>${esc(p[2])}</dd><dt>Event</dt><dd>${esc(p[3])}</dd>${p[7]?`<dt>In the book</dt><dd>${esc(p[7])}</dd>`:''}${k?'':`<dt>Lesson</dt><dd class="num">${esc(lessonTime(name))}</dd>`}</dl><div class="pills">${p[5]?'<span class="pill ok">Confirmed</span>':'<span class="pill neu">Suggested</span>'}${p[4]==='list'?'<span class="pill acc">On the WSMA list</span>':'<span class="pill warn">Needs permission</span>'}</div><div style="display:flex;gap:8px;flex-wrap:wrap">${p[6]?`<a class="btn sm" href="${p[6]}" target="_blank" rel="noopener">Open the music</a>`:`<span class="pill neu">Music ordered, link coming soon</span>`}${p[8]?`<a class="btn sm" href="${p[8]}" target="_blank" rel="noopener">Listen</a>`:''}</div>`;
+    sc.innerHTML=`<div class="ph"><h2>${ps.length>1?'Your solo and duet':'Your solo'}</h2></div>`+ps.map(blk).join(''); }
+  const p2=$('pick2');if(p2)p2.onclick=openPicker;
+  // starry
+  const nextL=ENS.findIndex(d=>d>=today),done=nextL<0?6:nextL;
+  $('snLevel').textContent=(name&&partOf(name)?`Your part: ${partOf(name)} · `:'')+(done>=6?'The whole piece is learned.':`Next goal: ${LEVELS[done][0].replace('To ','to ')} by ${md(ENS[done])}`);
+  $('snRec').href=SN_REC;{const pt=name&&partOf(name),lk=pt&&PARTLINK[pt],a=$('snMusic');a.hidden=!lk;if(lk){a.href=lk;a.textContent='Open your part: '+pt}}
+  $('snBar').innerHTML=ENS.map((d,i)=>`<li class="${i<done?'done':i===done?'next':''}"><i></i><span class="sn-n">${md(d)}</span><span class="sn-t">${LEVELS[i][0]}</span></li>`).join('');
+  $('snRows').innerHTML=ENS.slice(done,done+3).map((d,i)=>`<div class="rowc"><span class="d num">${md(d)}<span>Ensemble</span></span><span class="w">${LEVELS[done+i][0]}<span>${LEVELS[done+i][1]}</span></span><span class="t-time num">6:00–7:30</span></div>`).join('');
+  drawStrip();
+}
+function lessonTime(name){const i=SOLO.indexOf(name);if(i>=0)return 'Lesson nights, '+SOLO_T[i];if(name==='Lily')return 'Ensemble nights, 7:45–8:15';if(name==='Samantha')return 'Ensemble nights, 8:20–8:50';return '—'}
+
+// ---- Season strip: one column per week, a mark per night, your nights in the hue ----
+function drawStrip(){
+  const name=sel.value,el=$('cal');
+  const byDay=new Map(nights.map(n=>[n.d.toDateString(),n]));
+  const MONTHS=[[2026,10],[2026,11],[2027,0],[2027,1],[2027,2],[2027,3]];
+  const short=(n,s)=>{if(n.k==='B')return 'Off';if(n.k==='F')return n.d.getMonth()===1?'Dist.':'State';if(n.k==='D')return 'Dress 5:00';if(n.name.includes('dress'))return 'Dress';if(n.k==='S')return 'Ens/Les';if(n.name==='S&E kickoff')return 'Kick 6:00';
+    if(!s)return n.k==='L'?'Les.':'Ens.';if(s.what==='Lesson')return 'Les. '+s.t.split('–')[0];return 'Ens. 6:00'};
+  el.innerHTML=MONTHS.map(([y,m])=>{
+    const first=new Date(y,m,1),len=new Date(y,m+1,0).getDate(),lead=first.getDay();
+    let cells='';for(let i=0;i<lead;i++)cells+='<div class="x" aria-hidden="true"></div>';
+    for(let d=1;d<=len;d++){
+      const dt=new Date(y,m,d),n=byDay.get(dt.toDateString()),wd=dt.getDay();let cls=[],label='',tip='';
+      if(wd===0||wd===6)cls.push('we');
+      if(n){
+        if(n.k==='B'){cls.push('off');label='Off';tip=n.name}
+        else{const mine=name?mineIn(n,name):[];const isMine=name?mine.length>0:true;
+          cls.push(n.k==='S'?(isMine?'adv':'no'):(isMine?'on':'no'));
+          if(n.k==='D'||n.k==='F'||n.name.includes('dress'))cls.push('req');
+          const sl=name?mine[mine.length-1]:null;
+          label=short(n,name&&isMine?sl:null);
+          tip=name?(isMine?mine.map(s=>s.what+(s.t==='Saturday'?'':', '+s.t)).join('; '):n.name+', not you'):n.name;}
+        if(dt<today)cls.push('past');
+      }
+      if(dt.getTime()===today.getTime()){cls.push('today');tip=tip?'Today. '+tip:'Today'}
+      const ky=n?`${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()}`:'';
+      cells+=`<div class="${cls.join(' ')}${n?' tap':''}"${n?` data-k="${ky}" role="button" tabindex="0" aria-haspopup="dialog"`:''}${tip?` title="${fmt(dt)}: ${esc(tip)}"`:''}><b>${d}</b>${label?`<em>${esc(label)}</em>`:''}${tip?`<span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${esc(tip)}</span>`:''}</div>`;
+    }
+    const ag=nights.filter(n=>n.d.getFullYear()===y&&n.d.getMonth()===m).map(n=>{const mine=name?mineIn(n,name):[];const isMine=n.k!=='B'&&(!name||mine.length);const what=n.k==='B'?n.name:name?(isMine?mine.map(x=>x.what+(x.t==='Saturday'?'':', '+x.t)).join('; '):'Not you'):n.name;return `<li class="${isMine?'mine':''}"><b style="white-space:nowrap">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][n.d.getDay()]} ${n.d.getDate()}</b><span>${esc(what)}</span></li>`}).join('');
+    const gap=m===2?'<div class="gap">Mar 4, 11 and 18: ensemble or lessons, depending on who makes State. No rehearsal Mar 25, spring break.</div>':m===3?'<div class="gap">Apr 1, 8 and 15: ensemble or lessons, depending on who makes State. State dress Apr 22 is required if you advance. State festival Sat Apr 24.</div>':'';
+    return `<section class="mon" aria-label="${first.toLocaleDateString('en-US',{month:'long',year:'numeric'})}"><h3>${first.toLocaleDateString('en-US',{month:'long'})}<small>${y}</small></h3><div class="wk" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="dg">${cells}${gap}</div>${ag?`<ul class="agenda">${ag}</ul>`:''}</section>`;
+  }).join('');
+  // start on the month of the next date
+  const nx=nights.find(n=>n.k!=='B'&&n.d>=today),mi=nx?MONTHS.findIndex(([y,m])=>y===nx.d.getFullYear()&&m===nx.d.getMonth()):0;
+  requestAnimationFrame(()=>{const mons=el.querySelectorAll('.mon');if(mons[mi]){el.style.scrollBehavior='auto';el.scrollLeft=mons[mi].offsetLeft-el.offsetLeft;el.style.scrollBehavior=''}calArrows()});
+  $('legend').innerHTML=`<span><i class="sq" style="background:#db0000"></i>${name?'You’re on':'Rehearsal'}</span>${name?'<span><i class="sq" style="background:#ebebeb"></i>Not you</span>':''}<span><i class="sq" style="background:#fde8e8;box-shadow:inset 0 0 0 1.5px #db0000"></i>If you advance</span><span><i class="sq" style="background:#fff;box-shadow:inset 0 0 0 2px #1c1c1c"></i>Required</span>`;
+  {const ns=name?nights.filter(n=>n.k!=='B'&&mineIn(n,name).length):nights.filter(n=>n.k!=='B');const c=k=>ns.filter(n=>n.k===k).length;
+   const req=ns.filter(n=>n.k==='D'||n.name.includes('dress')).length;
+   $('tally').innerHTML=[[c('E'),'Ensemble nights'],[c('L'),name?'Lessons':'Lesson nights'],[req,'Dress rehearsals'],[c('F'),'Festivals'],[ns.filter(n=>n.k==='S'&&!n.name.includes('dress')).length,'State prep']].map(([v,l])=>`<div><b class="num">${v}</b>${l}</div>`).join('');}
+  const count=name?myList(name).length:nights.filter(n=>n.k!=='B').length;
+  $('stripChip').textContent=count+(name?' dates for you':' dates');
+  const startIn=days(ENS[0]);
+  $('stripNote').textContent=(startIn>0?`The season starts in ${startIn} days. `:'')+'Scroll sideways or use the arrows to move through the months.';
+}
+function fitCal(){const el=$('cal'),r=el.getBoundingClientRect();let h=0;el.querySelectorAll('.mon').forEach(m=>{const b=m.getBoundingClientRect();if(b.right>r.left+20&&b.left<r.right-20)h=Math.max(h,m.scrollHeight)});if(h)el.style.height=(h+16)+'px'}
+function calArrows(){fitCal();const el=$('cal');$('calPrev').disabled=el.scrollLeft<8;$('calNext').disabled=el.scrollLeft+el.clientWidth>=el.scrollWidth-8}
+function calStep(dir){const el=$('cal'),mon=el.querySelector('.mon');if(!mon)return;const step=mon.getBoundingClientRect().width+parseFloat(getComputedStyle(el).columnGap||28);el.scrollBy({left:dir*step,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+
+// ---- This-week reminder banner ----
+function renderRemind(){
+  const el=$('remind'),me=sel.value;
+  const nx=me?(myList(me).find(x=>x.n.d>=today)||{}).n:nights.find(n=>n.k!=='B'&&n.d>=today);
+  if(!nx||days(nx.d)>7){el.hidden=true;return}
+  const key=`${nx.d.getFullYear()}-${nx.d.getMonth()}-${nx.d.getDate()}`;
+  try{if(localStorage.getItem('cp26-remind')===key+'|'+me){el.hidden=true;return}}catch(e){}
+  const dd=days(nx.d),when=dd===0?'Tonight':dd===1?'Tomorrow':'This '+nx.d.toLocaleDateString('en-US',{weekday:'long'});
+  const mine=me?mineIn(nx,me):nx.slots,t=mine.length?mine.map(s=>s.t==='Saturday'?'All day':s.t).join(', '):'';
+  const ei=ENS.findIndex(d=>d.getTime()===nx.d.getTime());
+  const title={E:ei===0?'S&E kickoff, Percussion Ensemble':'Percussion Ensemble',L:'Lesson night',D:'Dress rehearsal (required)',F:nx.name,S:nx.name.includes('dress')?'State dress rehearsal':'State prep'}[nx.k]||nx.name;
+  const bring={E:'Bring sticks, mallets and a pencil.',L:'Bring your solo music, sticks or mallets, and a pencil.',D:'Bring everything: solo, duet and Starry Night music. Stay the whole time.',S:'Bring your music, sticks and mallets.',F:'Good luck!'}[nx.k]||'';
+  const goal=ei>=0?` Starry Night goal: ${LEVELS[ei][0].replace('To ','to ')}.`:'';
+  el.innerHTML=`<span class="rb">${esc(when)}</span><div class="rt"><b>${esc(md(nx.d))}: ${esc(title)}${t?' · '+esc(t):''}</b><span>${esc(bring)}${esc(goal)}</span></div><div class="ra"><button class="btn sm" id="rmSee">See the night</button><button class="btn sm ghost2" id="rmX" aria-label="Hide this reminder">Got it</button></div>`;
+  el.hidden=false;
+  $('rmSee').onclick=()=>openNight(key);
+  $('rmX').onclick=()=>{try{localStorage.setItem('cp26-remind',key+'|'+me)}catch(e){}el.hidden=true};
+}
+
+// ---- Night pop-up ----
+function openNight(key){
+  const n=nights.find(x=>`${x.d.getFullYear()}-${x.d.getMonth()}-${x.d.getDate()}`===key);if(!n)return;
+  const me=sel.value,dlg=$('nightDlg');
+  $('ndDay').textContent=n.d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const title={E:n.name==='S&E kickoff'?'S&E kickoff':'Ensemble night',L:'Lesson night',D:'Dress rehearsal',F:n.name,S:n.name.includes('dress')?'State dress rehearsal':'State prep',B:'No rehearsal'}[n.k]||n.name;
+  $('ndH').textContent=title;
+  let h='';
+  if(n.k==='B'){h=`<p class="nd-note">${esc(n.name)}. Enjoy the break!</p>`}
+  else{
+    const rows=n.slots.map(s=>{const who=s.all?(n.k==='E'?'Percussion Ensemble (everyone)':n.k==='F'?'Everyone performing':'Everyone'):s.who;const what=s.all?s.what:s.what==='Lesson'?'Lesson':s.what;
+      const mine=me&&(s.who===me||(s.all&&ENSEMBLE.includes(me)));
+      const sub=s.all?what:(n.k==='E'?'Lesson':'');
+      return `<div class="nd-row${mine?' me':''}"><b>${esc(s.t==='Saturday'?'All day':s.t)}</b><span><span class="nd-who">${esc(who)}</span>${sub?`<br><small style="color:#5f5f5f">${esc(sub)}</small>`:''}</span></div>`}).join('');
+    h=rows;
+    const ei=ENS.findIndex(d=>d.getTime()===n.d.getTime());
+    if(ei>=0)h+=`<p class="nd-note"><b>Starry Night goal: ${esc(LEVELS[ei][0].replace('To ','to '))}</b><br>${esc(LEVELS[ei][1])}</p>`;
+    if(n.k==='D'||n.name.includes('dress'))h+=`<p class="nd-note req"><b>Required.</b> Be here the whole time${n.k==='S'?' if you advance to State':''}.</p>`;
+    if(n.k==='S'&&!n.name.includes('dress'))h+=`<p class="nd-note">Who comes and when gets set after District on Feb 27, based on who makes State.</p>`;
+    if(n.k==='F')h+=`<p class="nd-note">Performance times come from the festival schedule. I'll share yours when it's out.</p>`;
+  }
+  $('ndBody').innerHTML=h;
+  if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');
+}
+$('cal').addEventListener('click',e=>{const c=e.target.closest('.tap');if(c)openNight(c.dataset.k)});
+$('cal').addEventListener('keydown',e=>{const c=e.target.closest('.tap');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openNight(c.dataset.k)}});
+$('ndX').addEventListener('click',()=>$('nightDlg').close());
+$('nightDlg').addEventListener('click',e=>{if(e.target===$('nightDlg'))$('nightDlg').close()});
+
+// ---- Schedule ----
+function renderSchedule(){
+  const name=sel.value;
+  $('schSub').textContent=name?`${first(name)}'s nights are marked. Every Thursday in the Columbus High School band room, plus the two festival Saturdays.`:'Every Thursday in the Columbus High School band room, Nov 19 to Apr 22, plus the two festival Saturdays.';
+  const kindPill={E:'<span class="pill neu">Ensemble</span>',L:'<span class="pill neu">Lessons</span>',D:'<span class="pill warn">Required</span>',F:'<span class="pill acc">Festival</span>',S:'<span class="pill neu">If you advance</span>',B:'<span class="pill neu">Off</span>'};
+  $('schTable').innerHTML='<thead><tr><th>Date</th><th>Night</th><th>'+(name?'You':'What happens')+'</th><th class="r">Time</th></tr></thead><tbody>'+nights.map(n=>{
+    const m=name?mineIn(n,name):[];const mine=m.length>0;
+    const what=n.k==='B'?'No rehearsal':name?(mine?m.map(s=>esc(s.what)).join('<br>'):'Not on tonight'):n.slots.map(s=>esc((s.who?first(s.who)+': ':'')+s.what)).slice(0,n.k==='L'?0:3).join('<br>')||'Lessons: '+SOLO.map(first).join(', ');
+    const t=n.k==='B'?'—':name?(mine?m.map(s=>s.t).join('<br>'):'—'):(n.k==='L'?'5:20–8:45':n.slots[0].t);
+    return `<tr class="${name?(mine?'mine':'dim'):''}"><td class="num">${fmt(n.d)}</td><td>${esc(n.name)} ${kindPill[n.k]}</td><td>${what}</td><td class="r num">${t}</td></tr>`}).join('')+'</tbody>';
+}
+
+// ---- Solos ----
+function renderSolos(){
+  const name=sel.value;const rows=[];
+  ALL.forEach(n=>{const ps=PIECES[n];if(ps===null)return;if(!ps.length){rows.push([n,['Not chosen yet','—','—','—','none',0,'']]);return}ps.forEach(p=>rows.push([n,p]))});
+  const conf=rows.filter(r=>r[1][5]).length,perm=rows.filter(r=>r[1][4]==='permission').length;
+  $('solSub').textContent=`${rows.length} entries · ${conf} confirmed · ${perm} need a WSMA permission request.`;
+  $('solTable').innerHTML='<thead><tr><th>Student</th><th>Piece</th><th>Plays on</th><th>WSMA</th><th>Status</th></tr></thead><tbody>'+rows.map(([n,p])=>`<tr class="${name&&n===name?'mine':''}"><td>${esc(n)}</td><td>${p[6]?`<a href="${p[6]}" target="_blank" rel="noopener">${esc(p[0])}</a>`:esc(p[0])}<span class="sub">${esc(p[1])}</span></td><td>${esc(p[2])}</td><td>${esc(p[3])}</td><td>${p[4]==='none'?'<span class="pill neu">Waiting</span>':(p[5]?'<span class="pill ok">Confirmed</span>':'<span class="pill neu">Suggested</span>')+' '+(p[4]==='list'?'<span class="pill acc">On list</span>':'<span class="pill warn">Permission</span>')}</td></tr>`).join('')+'</tbody>';
+}
+
+// ---- Starry Night ----
+function renderStarry(){
+  $('partsTable').innerHTML='<thead><tr><th>Part</th><th>Instruments</th><th>Player</th><th class="r"></th></tr></thead><tbody>'+PARTS.map(p=>`<tr class="${ASSIGN[p[0]]&&ASSIGN[p[0]]===sel.value?'mine':''}"><td>${PARTLINK[p[0]]?`<a href="${PARTLINK[p[0]]}" target="_blank" rel="noopener">${p[0]}</a>`:p[0]}</td><td>${p[1]||'<span class="sub">—</span>'}</td><td>${ASSIGN[p[0]]?esc(ASSIGN[p[0]]):'<span class="sub">Open</span>'}</td><td class="r">${p[2]?'<span class="pill neu">Required</span>':'<span class="pill neu">Optional</span>'}</td></tr>`).join('')+'</tbody>';
+  const nextL=ENS.findIndex(d=>d>=today);
+  $('lvlRows').innerHTML=ENS.map((d,i)=>{const st=nextL<0||i<nextL?'<span class="pill ok">Done</span>':i===nextL?'<span class="pill acc">Up next</span>':'<span class="pill neu">Coming up</span>';return `<div class="rowc"><span class="d num">${md(d)}<span>Ensemble</span></span><span class="w">${LEVELS[i][0]}<span>${LEVELS[i][1]}</span></span>${st}</div>`}).join('');
+}
+
+// ---- Practice log ----
+const key=d=>`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+store.log=store.log||{};store.hist=store.hist||[];
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>el.classList.remove('on'),1800)}
+function addMin(m){const k=key(today);store.log[k]=(store.log[k]||0)+m;store.hist.push([k,m]);save();renderLog();toast(`Logged ${m} minutes`)}
+function renderLog(){
+  const log=store.log;let wk=0,tot=0;Object.values(log).forEach(v=>tot+=v);
+  const bars=[];for(let i=6;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);const v=log[key(d)]||0;wk+=v;bars.push([d,v])}
+  let s=0;const c=new Date(today);if(!log[key(c)])c.setDate(c.getDate()-1);while(log[key(c)]){s++;c.setDate(c.getDate()-1)}
+  $('k4v').textContent=wk;$('k4c').textContent=s?`${s}-day streak`:'No streak yet';
+  $('streak').textContent=s;$('total').textContent=tot;
+  $('cheer').textContent=tot===0?'Log your first session to start a streak.':s>=7?'A full week in a row. That is how solos get firsts.':s>=3?`${s} days in a row. Keep it going.`:'Nice work. Come back tomorrow to build a streak.';
+  // bars
+  const svg=$('week'),W=svg.clientWidth||400,H=svg.clientHeight||150,top=Math.max(30,...bars.map(b=>b[1])),tickTop=Math.ceil(top/30)*30,base=H-30,ph=H-54;
+  let g='';[0,tickTop/2,tickTop].forEach(v=>{const y=base-v/tickTop*ph;g+=`<line x1="34" x2="${W}" y1="${y}" y2="${y}" stroke="#efefef"/><text x="0" y="${y+4}">${v}</text>`});
+  const bw=(W-34)/7;
+  bars.forEach(([d,v],i)=>{const h=v/tickTop*ph,x=34+i*bw+bw*.22,isT=i===6;g+=`<rect x="${x}" y="${base-h}" width="${bw*.56}" height="${Math.max(h,v?2:0)}" rx="3" fill="${isT?'#db0000':'#cfcfcf'}"><title>${fmt(d)}: ${v} min</title></rect><text x="${x+bw*.28}" y="${base+20}" text-anchor="middle">${isT?'Today':d.toLocaleDateString('en-US',{weekday:'short'})}</text>`});
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=g;
+}
+document.querySelectorAll('[data-min]').forEach(b=>b.addEventListener('click',()=>addMin(+b.dataset.min)));
+$('quickLog').addEventListener('click',()=>addMin(15));
+$('undo').addEventListener('click',()=>{const h=store.hist.pop();if(!h)return;store.log[h[0]]=Math.max(0,(store.log[h[0]]||0)-h[1]);if(!store.log[h[0]])delete store.log[h[0]];save();renderLog();toast('Removed the last entry')});
+
+// ---- Metronome ----
+const bpmIn=$('bpm'),drum=$('drum'),beatsEl=$('beats');
+let ctx=null,timer=null,beat=0,nextT=0,meter=4;
+const names=[[60,'Largo'],[76,'Adagio'],[108,'Andante'],[120,'Moderato'],[156,'Allegro'],[176,'Vivace'],[999,'Presto']];
+function setBpm(v){v=Math.max(40,Math.min(208,Math.round(v)));bpmIn.value=v;$('bpmV').textContent=v;$('tempoName').textContent=(names.find(n=>v<n[0])||names[6])[1]+', '+v+' a minute';store.bpm=v;save()}
+function drawBeats(){beatsEl.innerHTML=Array.from({length:meter},()=>'<i></i>').join('')}
+function click(t,acc){const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=acc?1500:1000;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.6,t+.002);g.gain.exponentialRampToValueAtTime(.0001,t+.05);o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+.06)}
+function sched(){while(nextT<ctx.currentTime+.1){const b=beat%meter,acc=b===0;click(nextT,acc);const delay=Math.max(0,(nextT-ctx.currentTime)*1000);setTimeout(()=>{drum.classList.add(acc?'accent':'hit');[...beatsEl.children].forEach((x,i)=>x.classList.toggle('on',i===b));setTimeout(()=>drum.classList.remove('hit','accent'),90)},delay);nextT+=60/+bpmIn.value;beat++}}
+drum.addEventListener('click',()=>{
+  if(timer){clearInterval(timer);timer=null;$('drumU').textContent='Start';[...beatsEl.children].forEach(x=>x.classList.remove('on'));return}
+  try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();ctx.resume()}catch(e){return}
+  beat=0;nextT=ctx.currentTime+.05;timer=setInterval(sched,25);$('drumU').textContent='Stop';
+});
+bpmIn.addEventListener('input',()=>setBpm(+bpmIn.value));
+$('minus').addEventListener('click',()=>setBpm(+bpmIn.value-4));
+$('plus').addEventListener('click',()=>setBpm(+bpmIn.value+4));
+$('meter').addEventListener('click',e=>{meter=meter===4?3:meter===3?2:4;e.target.textContent=meter+'/4';drawBeats()});
+let taps=[];$('tap').addEventListener('click',()=>{const n=performance.now();taps=taps.filter(t=>n-t<2500);taps.push(n);if(taps.length>1)setBpm(60000/((taps[taps.length-1]-taps[0])/(taps.length-1)))});
+
+// ---- Screens, menu, picker ----
+const VIEWS=['home','schedule','solos','starry','practice'],LABEL={home:'Home',schedule:'Schedule',solos:'Solos',starry:'Starry Night',practice:'Practice'};
+function show(){const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'home';
+  VIEWS.forEach(x=>$('v-'+x).classList.toggle('on',x===v));
+  document.querySelectorAll('.nav a').forEach(a=>{if(a.dataset.v===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  $('topTitle').textContent=LABEL[v];closeMenu();scrollTo(0,0);if(v==='home'){drawStrip();renderLog()}}
+function openMenu(){$('app').classList.add('menu-open');$('menuBtn').setAttribute('aria-expanded','true')}
+function closeMenu(){$('app').classList.remove('menu-open');$('menuBtn').setAttribute('aria-expanded','false')}
+function openPicker(){if(matchMedia('(max-width:1100px)').matches)openMenu();sel.focus()}
+$('menuBtn').addEventListener('click',openMenu);$('closeBtn').addEventListener('click',closeMenu);
+$('pickBtn').addEventListener('click',openPicker);
+addEventListener('hashchange',show);
+$('calPrev').addEventListener('click',()=>calStep(-1));$('calNext').addEventListener('click',()=>calStep(1));$('cal').addEventListener('scroll',()=>{clearTimeout(calArrows.t);calArrows.t=setTimeout(calArrows,80)},{passive:true});
+$('cal').addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();calStep(1)}if(e.key==='ArrowLeft'){e.preventDefault();calStep(-1)}});
+sel.addEventListener('change',()=>{store.who=sel.value;save();renderAll();closeMenu()});
+// ---- Phone reminders (calendar alerts) ----
+// APP_URL: the installed app's address once it is hosted (GitHub Pages). Leave '' until then.
+const APP_URL='';
+function renderAlerts(){
+  const el=$('alertCard'),me=sel.value,inApp=!!document.querySelector('link[rel="manifest"]');
+  el.hidden=false;
+  if(!inApp){el.innerHTML=`<div class="ph"><h2>Get the app</h2></div><p class="strip-note">Put Columbus Percussion on your home screen. It works offline and adds your rehearsals to your phone's calendar, with an alert the day before and 2 hours before.</p>${APP_URL?`<a class="btn sm primary" href="${APP_URL}" target="_blank" rel="noopener" style="margin-top:12px">Get the app</a>`:`<button class="btn sm" disabled style="margin-top:12px;opacity:.6;cursor:default">Get the app · coming soon</button>`}`;return}
+  const slug=(me||'everyone').toLowerCase(),base=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'');
+  const file=`cal/${slug}.ics`,web=base.replace(/^https?:/,'webcal:')+file;
+  const android=/Android/i.test(navigator.userAgent),gcal='https://calendar.google.com/calendar/render?cid='+encodeURIComponent(web);
+  el.innerHTML=`<div class="ph"><h2>Reminders on your phone</h2></div>
+  <p class="strip-note">${me?`Every one of your nights, ${esc(me)},`:'Every rehearsal of the season'} goes into your phone's calendar with an alert the day before and 2 hours before.${me?'':' Choose your name first to get only your nights.'}</p>
+  ${android?`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><a class="btn sm primary" href="${gcal}" target="_blank" rel="noopener">Add to Google Calendar</a><a class="btn sm" href="${file}" download>Download file</a></div>
+  <p class="strip-note" style="margin-top:10px;font-size:12px">Google Calendar keeps it up to date when the schedule changes. To get alerts, open Google Calendar › Settings › Columbus Percussion and turn on notifications.</p>`
+  :`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><a class="btn sm primary" href="${web}">Subscribe (stays updated)</a><a class="btn sm" href="${file}" download>Add once</a></div>
+  <p class="strip-note" style="margin-top:10px;font-size:12px">Subscribe keeps your calendar up to date when the schedule changes. On iPhone, if alerts don't show, open Settings › Calendar › Accounts › Subscribed Calendars and turn off "Remove Alerts". On Android, use Google Calendar instead.</p>`}`;
+}
+// Read-only copy of the schedule data for the app build (calendar files).
+window.CP=Object.freeze({nights,ENS,LEVELS,ALL,mineIn});
+function renderAll(){renderHome();renderSchedule();renderSolos();renderStarry();try{renderAlerts()}catch(e){}}
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{drawStrip();renderLog()},120)});
+
+if(store.who&&store.who.includes(' ')){store.who=store.who.split(' ')[0];save()}
+if(store.who&&ALL.includes(store.who))sel.value=store.who;
+setBpm(store.bpm||96);drawBeats();renderAll();renderLog();show();
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
