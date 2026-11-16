@@ -804,7 +804,7 @@ function renderInstall(){
   else if(android&&deferredInstall)steps=`<p style="margin:0;font-size:15px">One tap and it's on your home screen.</p>`;
   else if(android)steps=`<ol><li>Open this page in <b>Chrome</b>.</li><li>Tap the <b>⋮</b> menu (top right).</li><li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li></ol>`;
   else steps=`<p style="margin:0;font-size:15px">Open this link on your phone to install it. On a computer, look for the install icon in the address bar.</p>`;
-  el.innerHTML=`<h2>📲 Put this app on your phone</h2>${steps}<div class="ia">${deferredInstall?'<button class="btn sm primary" id="instGo">Install app</button>':''}<button class="btn sm" id="instX">Not now</button></div>`;
+  el.innerHTML=`<h2>📲 Put this app on your phone</h2><p style="margin:0 0 4px;font-size:14px;color:#5f5f5f">Optional. Everything works here in the browser too.</p>${steps}<div class="ia">${deferredInstall?'<button class="btn sm primary" id="instGo">Install app</button>':''}<button class="btn sm" id="instX">Not now</button></div>`;
   el.hidden=false;
   const go=$('instGo');if(go)go.onclick=async()=>{deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;renderInstall()};
   $('instX').onclick=()=>{try{localStorage.setItem('cp26-install','hide')}catch(e){}el.hidden=true};
@@ -949,7 +949,7 @@ const APP_URL='https://chereksd15.github.io/chs-percussion/';
 function renderAlerts(){
   const el=$('alertCard'),me=sel.value,inApp=!!document.querySelector('link[rel="manifest"]');
   el.hidden=false;
-  if(!inApp){el.innerHTML=`<div class="ph"><h2>Get the app</h2></div><p class="strip-note">Open it in Safari (iPhone) or Chrome (Android) and add it to your home screen. It works offline and adds your rehearsals to your phone's calendar, with an alert the day before and 2 hours before.</p>${APP_URL?`<a class="btn sm primary" href="${APP_URL}" target="_blank" rel="noopener" style="margin-top:12px">Get the app</a>`:`<button class="btn sm" disabled style="margin-top:12px;opacity:.6;cursor:default">Get the app · coming soon</button>`}`;return}
+  if(!inApp){el.innerHTML=`<div class="ph"><h2>Get the app</h2><span class="pill neu">Optional</span></div><p class="strip-note">Completely optional: this page has everything. Open it in Safari (iPhone) or Chrome (Android) and add it to your home screen. It works offline and adds your rehearsals to your phone's calendar, with an alert the day before and 2 hours before.</p>${APP_URL?`<a class="btn sm primary" href="${APP_URL}" target="_blank" rel="noopener" style="margin-top:12px">Get the app</a>`:`<button class="btn sm" disabled style="margin-top:12px;opacity:.6;cursor:default">Get the app · coming soon</button>`}`;return}
   const slug=(me||'everyone').toLowerCase(),base=location.href.replace(/[#?].*$/,'').replace(/[^/]*$/,'');
   const file=`cal/${slug}.ics`,web=base.replace(/^https?:/,'webcal:')+file;
   const android=/Android/i.test(navigator.userAgent),gcal='https://calendar.google.com/calendar/render?cid='+encodeURIComponent(web);
