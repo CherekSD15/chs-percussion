@@ -15,14 +15,13 @@ offline after the first visit.
 | `img/` | Columbus Cardinal logo and the Starry Night painting |
 | `cal/` | Rehearsal calendars with alerts: one per student, plus `everyone.ics` |
 
-## Put it online (GitHub Pages, free)
+## Where it lives
 
-1. Go to github.com/new and create a repository, for example `chs-percussion`.
-   On the free plan, GitHub Pages needs the repository to be **public**.
-2. Upload everything in this folder (keep the `icons` and `img` folders).
-3. In the repository: **Settings → Pages → Build and deployment**,
-   source **Deploy from a branch**, branch **main**, folder **/ (root)**. Save.
-4. After a minute the app is live at `https://<your-username>.github.io/chs-percussion/`.
+**Live app:** https://chereksd15.github.io/chs-percussion/
+
+Hosted free on GitHub Pages from the `main` branch of this repository
+(Settings → Pages → Deploy from a branch → `main`, `/ (root)`). Every push to `main`
+goes live within a minute or two.
 
 ## How students install it
 
@@ -46,7 +45,7 @@ students without them doing anything.
 
 Claude rebuilds this folder from the season page, so the page and the app stay the
 same: `index.html`, the calendars in `cal/`, and the `VERSION` line in `sw.js` (which
-tells phones there's an update) are all regenerated together. Upload the new files and
+tells phones there's an update) are all regenerated together and pushed here, and
 phones pick up the new version the next time the app is opened with a connection.
 
 ## Privacy note

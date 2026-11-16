@@ -914,7 +914,7 @@ $('cal').addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefaul
 sel.addEventListener('change',()=>{store.who=sel.value;save();renderAll();closeMenu()});
 // ---- Phone reminders (calendar alerts) ----
 // APP_URL: the installed app's address once it is hosted (GitHub Pages). Leave '' until then.
-const APP_URL='';
+const APP_URL='https://chereksd15.github.io/chs-percussion/';
 function renderAlerts(){
   const el=$('alertCard'),me=sel.value,inApp=!!document.querySelector('link[rel="manifest"]');
   el.hidden=false;
