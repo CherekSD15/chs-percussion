@@ -651,7 +651,7 @@ const SOLO=['Jaspar','Kayla','Ariana','Evangeline','Jordan','Leverett'];
 const SOLO_T=['5:20–5:50','6:00–6:30','6:35–7:05','7:10–7:40','7:45–8:15','8:15–8:45'];
 const ENSEMBLE=['Kayla','Karsyn','Shepard','Leverett','Lily','Jordan','Ariana','Evangeline','Jaspar','Samantha'];
 const ALL=[...ENSEMBLE].sort((a,b)=>a.localeCompare(b));
-const LEVELS=[['To letter A','Bars 1–20 · 20 bars. Get your part and read through'],['To letter B','Letter A, bars 21–36 · 16 bars. Slow, quarter = 85'],['To letter C','Letter B, bars 37–58 · 22 bars'],['To letter D','Letter C, bars 59–97 · 39 bars. Fast, quarter = 170'],['To letter E','Letter D, bars 98–121 · 24 bars'],['To the end','Letters E and F, bars 122–149 · 28 bars, then run the whole piece']];
+const LEVELS=[['To letter A','Opening, bars 1–20 · 20 bars. Fast, quarter = 170, in 3/4. Get your part and read through'],['To letter B','Letter A, bars 21–36 · 16 bars. Slow, quarter = 85'],['To letter C','Letter B, bars 37–58 · 22 bars. Slow, quarter = 85'],['To letter D','Letter C, bars 59–97 · 39 bars. Fast, quarter = 170 (sixteenth = eighth)'],['To letter E','Letter D, bars 98–121 · 24 bars. Fast, quarter = 170'],['To the end','Letters E and F, bars 122–149 · 28 bars. E fast (170), F slow (85, quarter = eighth), then run the whole piece']];
 const nights=[];
 ENS.forEach((d,i)=>nights.push({d,k:'E',name:i===0?'S&E kickoff':'Ensemble night',slots:i===0?[{all:1,what:'Starry Night kickoff, ensemble only',t:'6:00–7:30'}]:[{all:1,what:'Starry Night, all ensemble',t:'6:00–7:30'},{who:'Lily',what:'Lesson',t:'7:45–8:15'},{who:'Samantha',what:'Lesson',t:'8:20–8:50'}]}));
 LES.forEach(d=>nights.push({d,k:'L',name:'Lesson night',slots:SOLO.map((w,i)=>({who:w,what:'Lesson',t:SOLO_T[i]}))}));

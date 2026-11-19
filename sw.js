@@ -1,6 +1,6 @@
 // Columbus Percussion app: offline support.
 // Bump VERSION whenever index.html or an image changes so phones pick up the update.
-const VERSION = 'cp-20261119T162020Z';
+const VERSION = 'cp-20261119T220142Z';
 const CORE = ['./', './index.html', './manifest.webmanifest', './img/starry-night.jpg', './img/cardinal.png',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
